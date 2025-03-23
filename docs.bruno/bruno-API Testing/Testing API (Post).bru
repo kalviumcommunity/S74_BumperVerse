@@ -1,0 +1,23 @@
+meta {
+  name: Testing API (Post)
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/api/stickers
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+          "imageUrl": "https://res.cloudinary.com/difwwvg2d/image/upload/v1742739743/cctm9ggomajjmdjespdk.jpg",
+          "category": "Funny",
+          "description": "Drive safe!",
+          "uploadedBy": "67e01b719ea3951963a8dad7",
+          "likesCount": 0,
+          "feedbacks": [],
+          "createdAt": "2025-03-23T12:00:00.000+00:00"
+      }
+}

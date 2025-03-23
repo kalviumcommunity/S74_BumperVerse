@@ -1,25 +1,24 @@
-require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
+require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Middleware
+app.use(express.json()); // Allows parsing of JSON requests
+
 // MongoDB Connection
 mongoose
-    .connect(process.env.MONGO_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
-    .then(() => console.log('✅ MongoDB Connected'))
-    .catch((err) => console.error('❌ MongoDB Connection Error:', err));
+    .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log("✅ MongoDB Connected"))
+    .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
-// Home route with DB connection status
-app.get('/', async (req, res) => {
-    const dbStatus = mongoose.connection.readyState; // 1 = Connected, 0 = Disconnected
-    res.json({ databaseStatus: dbStatus === 1 ? 'Connected' : 'Disconnected' });
-});
+// Routes
+const stickerRoutes = require("./routes");
+app.use("/api", stickerRoutes); // Prefix all routes with /api
 
+// Start Server
 app.listen(PORT, () => {
-    console.log(`🚀 Server is running on port ${PORT}`);
+    console.log(`🚀 Server running on port ${PORT}`);
 });
